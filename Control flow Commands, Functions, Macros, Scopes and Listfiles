@@ -1,0 +1,6 @@
+22. Functions
+function(print_detail name_var)
+	message("1. My name is ${${name_var}}")
+endfunction()
+
+24. Scopes
