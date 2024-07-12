@@ -7,3 +7,31 @@ endfunction()
 
 //---------------------------------------------------------------------------------
 24. Scopes
+Scopes in function is similar to Scopes in subdirectories:
+	- When call a function --> create new Scopes --> coppy variable of parent Scopes to new Scopes --> if modify inside function will not affect to parent Scopes
+	- Using argument PARENT_SCOPE will change variabl eof parent Scopes only
+
+Example:
+set(Name Charlie)
+function(print_detail)
+	set(Name Bob PARENT_SCOPE)
+	endfunction()
+
+//---------------------------------------------------------------------------------
+25. Macros
+	- Macros is similar to function but it not introduce new Scopes
+	- So, If change variable inside macro is only affect to current Scopes
+	- Argument of Macros is string replacement
+
+Example:
+macro(print_detail name_var)
+	message("My name is ${name_var}")
+	set(name_var abc)
+	message("My name is ${name_var}")
+endmacro()
+
+print_detail(Charlie)
+
+Note: function and Macros is case insensitive letter, which means:
+function(FOO) <--> function(Foo) ,...
+target_link_library() <--> TARGET_link_library
