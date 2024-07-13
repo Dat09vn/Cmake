@@ -1,11 +1,11 @@
-//---------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 22. Functions
 function(print_detail name_var)
 	message("1. My name is ${${name_var}}")
 endfunction()
 
 
-//---------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 24. Scopes
 Scopes in function is similar to Scopes in subdirectories:
 	- When call a function --> create new Scopes --> coppy variable of parent Scopes to new Scopes --> if modify inside function will not affect to parent Scopes
@@ -17,7 +17,7 @@ function(print_detail)
 	set(Name Bob PARENT_SCOPE)
 	endfunction()
 
-//---------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 25. Macros
 	- Macros is similar to function but it not introduce new Scopes
 	- So, If change variable inside macro is only affect to current Scopes
@@ -35,3 +35,13 @@ print_detail(Charlie)
 Note: function and Macros is case insensitive letter, which means:
 function(FOO) <--> function(Foo) ,...
 target_link_library() <--> TARGET_link_library
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+25. Listfiles and Modules
+CmakeLists will call modules using include() command.
+Note: use include() will not introduce new scope.
+
+Example:
+list(APPEND CMAKE_MODULE_PATH my_module.cmake AA_module.cmake)
+include(my_module.cmake)
+include(AA_module.cmake)
