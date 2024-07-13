@@ -23,3 +23,17 @@ set(ENV{MY_ENV_VAR} "SomeValue")
 
 # Pass the environment variable to the build system
 add_compile_definitions(MY_ENV_VAR="$ENV{MY_ENV_VAR}")
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3.CMAKE_VERSION
+message(CMAKE_VERSION=${CMAKE_VERSION})
+message(CMAKE_MAJOR_VERSION=${CMAKE_MAJOR_VERSION})
+message(CMAKE_MINOR_VERSION=${CMAKE_MINOR_VERSION})
+message(CMAKE_PATCH_VERSION=${CMAKE_PATCH_VERSION})
+
+CMAKE_PROJECT_NAME
+message("This is root level: " CMAKE_PROJECT_NAME=${CMAKE_PROJECT_NAME})
+message("This is root level: " PROJECT_NAME=${PROJECT_NAME})
+
+CMAKE_GENERATOR
+on CmakeCache.txt: CMAKE_GENERATOR:INTERNAL=Unix Makefiles
