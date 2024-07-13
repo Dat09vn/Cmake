@@ -1,0 +1,25 @@
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. Cache variable
+Example:
+set (A 3)
+set(A "123" CACHE STRING "This command sets variable A in persistent cache")
+message($CACHE{A})
+
+If use variable, first look up in the local scope, if not found, continue find in cache or global scope
+
+If you want to modify Cache variable, using FORCE flag or -D like below:
+set(A "456" CACHE STRING "This command sets variable A in persistent cache" FORCE)
+
+Cmake -DA="456" ..
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2.Enviroment variable
+has global scope but not stored in CMakeCache
+
+Note:
+By using command below, we can use MY_ENV_VAR in source code.
+
+set(ENV{MY_ENV_VAR} "SomeValue")
+
+# Pass the environment variable to the build system
+add_compile_definitions(MY_ENV_VAR="$ENV{MY_ENV_VAR}")
