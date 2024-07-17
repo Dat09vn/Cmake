@@ -1,0 +1,57 @@
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+I: predefined directories in linux: usr/local
+
+Using install to copy include file and target file into predefined directories:
+
+Example:
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/my_math/addition.h ${CMAKE_CURRENT_SOURCE_DIR}/include/my_math/division.h  DESTINATION ${CMAKE_INSTALL_PREFIX}/include/my_math)
+install(TARGETS my_math DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/my_math)
+
+Command line to build:
+cmake ..
+make
+sudo make install
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To use my_math library in any project:
+When using find_package, It searches for my_math-config.cmake in usr/local/lib
+
+There are 3 steps:
+	1. Add targets to export group
+	2. Install the export group
+	3. Modify the target_include_directories() command
+	
+Example:
+target_include_directories( my_math PUBLIC
+$<INSTALL_INTERFACE:include>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/include/my_math/addition.h ${CMAKE_CURRENT_SOURCE_DIR}/include/my_math/division.h  DESTINATION ${CMAKE_INSTALL_PREFIX}/include/my_math)
+
+install(TARGETS my_math EXPORT my_export DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/my_math)
+
+install(EXPORT my_export FILE my_math-config.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/my_math)
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+using 3rd party package in any project:
+
+Example:
+
+find_package(my_math)
+
+if(my_math_FOUND)
+	message("my_math library found")
+	add_executable(calc main.cpp)
+	target_link_libraries(calc my_math)	
+else()
+	message(FATAL_ERROR "my_math library not found")
+endif()
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+find_package() has Module Mode and Config Mode --> search module first then search config
+
+1. Module Mode:
+search inside CMAKE_MODULE_DIR in cache variables --> using to find package that is inside our project
+2. Config Mode:
+using install 3rd party package
